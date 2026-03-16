@@ -91,7 +91,7 @@ export class URI extends ROElement {
 }
 
 export class I18n extends ROElement {
-  private map: I18nData;
+  protected map: I18nData;
 
   constructor(initialMap: I18nData) {
     super()
@@ -106,19 +106,47 @@ export class I18n extends ROElement {
     return Object.prototype.hasOwnProperty.call(this.map, language);
   }
 
+  protected getPreferredLanguage(lang?: string): string | undefined {
+    if (!this.map) return undefined;
+    if (lang && this.has(lang)) return lang;
+    return Object.keys(this.map)[0];
+  }
+
   toHTML(lang?: string): HTMLElement {
     const container = document.createElement("div");
     container.className = "ro-" + this.constructor.name.toLowerCase();
 
     if (this.map) {
-      if (!lang || !this.has(lang)) {
-        lang = Object.keys(this.map)[0];
-      }
+      lang = this.getPreferredLanguage(lang);
+      if (!lang) return container;
       const langContainer = document.createElement("span");
       langContainer.className = `lang-${lang}`;
       this.get(lang).forEach((item) => {
         const itemContainer = document.createElement("span");
         itemContainer.textContent = item;
+        langContainer.appendChild(itemContainer);
+      })
+      container.appendChild(langContainer);
+    }
+
+    return container;
+  }
+}
+
+export class HtmlI18n extends I18n {
+
+  toHTML(lang?: string): HTMLElement {
+    const container = document.createElement("div");
+    container.className = "ro-" + this.constructor.name.toLowerCase();
+
+    if (this.map) {
+      lang = this.getPreferredLanguage(lang);
+      if (!lang) return container;
+      const langContainer = document.createElement("span");
+      langContainer.className = `lang-${lang}`;
+      this.get(lang).forEach((item) => {
+        const itemContainer = document.createElement("span");
+        itemContainer.innerHTML = item;
         langContainer.appendChild(itemContainer);
       })
       container.appendChild(langContainer);

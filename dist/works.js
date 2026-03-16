@@ -1,4 +1,4 @@
-import { Data, I18n, Label, LabelledLink, ROElement, URI } from './base';
+import { Data, HtmlI18n, I18n, Label, LabelledLink, ROElement, URI } from './base';
 /////////////////////////////
 export var Works;
 (function (Works) {
@@ -19,7 +19,7 @@ export var Works;
                 this.sources = new Sources(data.sources);
                 this.externalAuthorities = new ExternalAuthorities(data.externalAuthorities);
                 this.formOfWork = new FormOfWork(data.formOfWork);
-                this.referencesNotes;
+                this.referencesNotes = new ReferencesNotes(data.referencesNotes);
                 this.relationships = new Relationships(data.relationships);
             }
         }
@@ -178,7 +178,7 @@ export var Works;
         }
     }
     Works.NotesItem = NotesItem;
-    class NotesItemValue extends I18n {
+    class NotesItemValue extends HtmlI18n {
     }
     Works.NotesItemValue = NotesItemValue;
     class PAE extends ROElement {

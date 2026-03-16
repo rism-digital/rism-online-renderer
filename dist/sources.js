@@ -1,4 +1,4 @@
-import { I18n, Label, LabelledLink, ROElement, URI } from './base';
+import { HtmlI18n, I18n, Label, LabelledLink, ROElement, URI } from './base';
 /////////////////////////////
 export var Sources;
 (function (Sources) {
@@ -153,7 +153,7 @@ export var Sources;
         }
     }
     Sources.NotesItem = NotesItem;
-    class NotesItemValue extends I18n {
+    class NotesItemValue extends HtmlI18n {
     }
     Sources.NotesItemValue = NotesItemValue;
     class RecordHistory extends ROElement {

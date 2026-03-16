@@ -1,6 +1,6 @@
 import { WorkTypes } from "./types";
 
-import { Data, I18n, Label, LabelledLink, ROElement, URI } from './base';
+import { Data, HtmlI18n, I18n, Label, LabelledLink, ROElement, URI } from './base';
 
 /////////////////////////////
 
@@ -256,7 +256,7 @@ export namespace Works {
     }
   }
 
-  export class NotesItemValue extends I18n { }
+  export class NotesItemValue extends HtmlI18n { }
 
   export class PAE extends ROElement {
     clef?: string;

@@ -86,18 +86,45 @@ var RISMOnlineCustom = (function (exports) {
         has(language) {
             return Object.prototype.hasOwnProperty.call(this.map, language);
         }
+        getPreferredLanguage(lang) {
+            if (!this.map)
+                return undefined;
+            if (lang && this.has(lang))
+                return lang;
+            return Object.keys(this.map)[0];
+        }
         toHTML(lang) {
             const container = document.createElement("div");
             container.className = "ro-" + this.constructor.name.toLowerCase();
             if (this.map) {
-                if (!lang || !this.has(lang)) {
-                    lang = Object.keys(this.map)[0];
-                }
+                lang = this.getPreferredLanguage(lang);
+                if (!lang)
+                    return container;
                 const langContainer = document.createElement("span");
                 langContainer.className = `lang-${lang}`;
                 this.get(lang).forEach((item) => {
                     const itemContainer = document.createElement("span");
                     itemContainer.textContent = item;
+                    langContainer.appendChild(itemContainer);
+                });
+                container.appendChild(langContainer);
+            }
+            return container;
+        }
+    }
+    class HtmlI18n extends I18n {
+        toHTML(lang) {
+            const container = document.createElement("div");
+            container.className = "ro-" + this.constructor.name.toLowerCase();
+            if (this.map) {
+                lang = this.getPreferredLanguage(lang);
+                if (!lang)
+                    return container;
+                const langContainer = document.createElement("span");
+                langContainer.className = `lang-${lang}`;
+                this.get(lang).forEach((item) => {
+                    const itemContainer = document.createElement("span");
+                    itemContainer.innerHTML = item;
                     langContainer.appendChild(itemContainer);
                 });
                 container.appendChild(langContainer);
@@ -303,7 +330,7 @@ var RISMOnlineCustom = (function (exports) {
             }
         }
         Sources.NotesItem = NotesItem;
-        class NotesItemValue extends I18n {
+        class NotesItemValue extends HtmlI18n {
         }
         Sources.NotesItemValue = NotesItemValue;
         class RecordHistory extends ROElement {

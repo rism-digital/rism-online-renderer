@@ -1,6 +1,6 @@
 import { SourceTypes } from "./types";
 
-import { I18n, Label, LabelledLink, ROElement, URI } from './base';
+import { HtmlI18n, I18n, Label, LabelledLink, ROElement, URI } from './base';
 
 /////////////////////////////
 
@@ -218,7 +218,7 @@ export namespace Sources {
     }
   }
 
-  export class NotesItemValue extends I18n { }
+  export class NotesItemValue extends HtmlI18n { }
 
   export class RecordHistory extends ROElement {
     type?: string;

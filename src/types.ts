@@ -306,18 +306,18 @@ export namespace WorkTypes {
         updated?: UpdatedData;
     }
 
+    export interface ReferencesNotesData {
+        sectionLabel?: I18nData;
+        type?: string;
+        notes?: NotesItemData[];
+    }
+
     export interface RelatedToData {
         id: string;
         label: I18nData;
         type?: string;
         typeLabel?: I18nData;
         status?: StatusData;
-    }
-
-    export interface ReferencesNotesData {
-        sectionLabel?: I18nData;
-        type?: string;
-        notes?: NotesItemData[];
     }
 
     export interface RelationshipsItemData {
