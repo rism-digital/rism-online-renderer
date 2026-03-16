@@ -197,6 +197,7 @@ export namespace WorkTypes {
         sources?: SourcesData;
         externalAuthorities?: ExternalAuthoritiesData;
         formOfWork?: FormOfWorkData;
+        referencesNotes?: ReferencesNotesData;
         relationships?: RelationshipsData;
     }
 
@@ -273,6 +274,11 @@ export namespace WorkTypes {
         workNumber?: string;
     }
 
+    export interface NotesItemData {
+        label?: I18nData;
+        value?: I18nData;
+    }
+
     export interface PAEData {
         clef?: string;
         keysig?: string;
@@ -306,6 +312,12 @@ export namespace WorkTypes {
         type?: string;
         typeLabel?: I18nData;
         status?: StatusData;
+    }
+
+    export interface ReferencesNotesData {
+        sectionLabel?: I18nData;
+        type?: string;
+        notes?: NotesItemData[];
     }
 
     export interface RelationshipsItemData {

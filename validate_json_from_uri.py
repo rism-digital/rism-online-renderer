@@ -18,7 +18,11 @@ from jsonschema.exceptions import ValidationError, SchemaError
 def load_json_from_uri(uri: str):
     """Fetch and parse JSON data from a URI."""
     try:
-        with urllib.request.urlopen(uri) as response:
+        request = urllib.request.Request(
+            uri,
+            headers={"Accept": "application/ld+json, application/json"},
+        )
+        with urllib.request.urlopen(request) as response:
             charset = response.headers.get_content_charset() or "utf-8"
             data = response.read().decode(charset)
             return json.loads(data)

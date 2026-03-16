@@ -19,6 +19,7 @@ export var Works;
                 this.sources = new Sources(data.sources);
                 this.externalAuthorities = new ExternalAuthorities(data.externalAuthorities);
                 this.formOfWork = new FormOfWork(data.formOfWork);
+                this.referencesNotes;
                 this.relationships = new Relationships(data.relationships);
             }
         }
@@ -167,6 +168,19 @@ export var Works;
         }
     }
     Works.Item = Item;
+    class NotesItem extends ROElement {
+        constructor(data) {
+            super();
+            if (data) {
+                this.label = new Label(data.label);
+                this.value = new NotesItemValue(data.value);
+            }
+        }
+    }
+    Works.NotesItem = NotesItem;
+    class NotesItemValue extends I18n {
+    }
+    Works.NotesItemValue = NotesItemValue;
     class PAE extends ROElement {
         constructor(data) {
             super();
@@ -215,6 +229,17 @@ export var Works;
         }
     }
     Works.RecordHistory = RecordHistory;
+    class ReferencesNotes extends ROElement {
+        constructor(data) {
+            super();
+            if (data) {
+                this.sectionLabel = new Label(data.sectionLabel);
+                this.type = data.type;
+                this.notes = (data.notes || []).map((note) => new NotesItem(note));
+            }
+        }
+    }
+    Works.ReferencesNotes = ReferencesNotes;
     class RelatedTo extends ROElement {
         constructor(data) {
             super();

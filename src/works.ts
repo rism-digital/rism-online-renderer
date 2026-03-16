@@ -18,6 +18,7 @@ export namespace Works {
     sources?: Sources;
     externalAuthorities?: ExternalAuthorities;
     formOfWork?: FormOfWork;
+    referencesNotes?: ReferencesNotes;
     relationships?: Relationships;
 
     constructor(data: WorkTypes.WorkData) {
@@ -38,6 +39,7 @@ export namespace Works {
         this.sources = new Sources(data.sources);
         this.externalAuthorities = new ExternalAuthorities(data.externalAuthorities);
         this.formOfWork = new FormOfWork(data.formOfWork);
+        this.referencesNotes
         this.relationships = new Relationships(data.relationships);
       }
     }
@@ -241,6 +243,21 @@ export namespace Works {
     }
   }
 
+  export class NotesItem extends ROElement {
+    label?: Label;
+    value?: NotesItemValue;
+
+    constructor(data: WorkTypes.NotesItemData) {
+      super();
+      if (data) {
+        this.label = new Label(data.label);
+        this.value = new NotesItemValue(data.value);
+      }
+    }
+  }
+
+  export class NotesItemValue extends I18n { }
+
   export class PAE extends ROElement {
     clef?: string;
     keysig?: string;
@@ -304,6 +321,21 @@ export namespace Works {
         this.type = data.type;
         this.created = new Created(data.created);
         this.updated = new Updated(data.updated);
+      }
+    }
+  }
+
+  export class ReferencesNotes extends ROElement {
+    sectionLabel?: Label;
+    type?: string;
+    notes?: NotesItem[];
+
+    constructor(data: WorkTypes.ReferencesNotesData) {
+      super();
+      if (data) {
+        this.sectionLabel = new Label(data.sectionLabel);
+        this.type = data.type;
+        this.notes = (data.notes || []).map((note: WorkTypes.NotesItemData) => new NotesItem(note));
       }
     }
   }

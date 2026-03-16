@@ -225,6 +225,18 @@
             },
             "type": "object"
         },
+        "WorkTypes.NotesItemData": {
+            "additionalProperties": false,
+            "properties": {
+                "label": {
+                    "$ref": "#/definitions/I18nData"
+                },
+                "value": {
+                    "$ref": "#/definitions/I18nData"
+                }
+            },
+            "type": "object"
+        },
         "WorkTypes.PAEData": {
             "additionalProperties": false,
             "properties": {
@@ -293,6 +305,24 @@
                 },
                 "updated": {
                     "$ref": "#/definitions/WorkTypes.UpdatedData"
+                }
+            },
+            "type": "object"
+        },
+        "WorkTypes.ReferencesNotesData": {
+            "additionalProperties": false,
+            "properties": {
+                "notes": {
+                    "items": {
+                        "$ref": "#/definitions/WorkTypes.NotesItemData"
+                    },
+                    "type": "array"
+                },
+                "sectionLabel": {
+                    "$ref": "#/definitions/I18nData"
+                },
+                "type": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -455,6 +485,9 @@
         },
         "recordHistory": {
             "$ref": "#/definitions/WorkTypes.RecordHistoryData"
+        },
+        "referencesNotes": {
+            "$ref": "#/definitions/WorkTypes.ReferencesNotesData"
         },
         "relationships": {
             "$ref": "#/definitions/WorkTypes.RelationshipsData"
