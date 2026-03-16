@@ -39,7 +39,7 @@ export namespace Works {
         this.sources = new Sources(data.sources);
         this.externalAuthorities = new ExternalAuthorities(data.externalAuthorities);
         this.formOfWork = new FormOfWork(data.formOfWork);
-        this.referencesNotes
+        this.referencesNotes = new ReferencesNotes(data.referencesNotes);
         this.relationships = new Relationships(data.relationships);
       }
     }
