@@ -8,10 +8,11 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 import urllib.request
 from urllib.error import URLError, HTTPError
-from jsonschema import Draft202012Validator, validate
+from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError, SchemaError
 
 
@@ -57,9 +58,26 @@ def validate_json(data, schema):
             print("✅ JSON is valid according to schema.")
         else:
             print("❌ JSON validation failed:\n")
-            for err in errors:
+            for index, err in enumerate(errors, 1):
                 path = ".".join(str(x) for x in err.path) or "<root>"
-                print(f" - {path}: {err.message}")
+                schema_path = ".".join(str(x) for x in err.absolute_schema_path) or "<root>"
+                instance_preview = json.dumps(err.instance, ensure_ascii=False)
+                if len(instance_preview) > 300:
+                    instance_preview = instance_preview[:297] + "..."
+
+                print(f" {index}. {path}: {err.message}")
+                print(f"    validator: {err.validator}")
+                print(f"    schema path: {schema_path}")
+                print(f"    failing value: {instance_preview}")
+
+                if err.validator == "additionalProperties" and isinstance(err.schema, dict):
+                    allowed = sorted(err.schema.get("properties", {}).keys())
+                    if allowed:
+                        print(f"    allowed properties: {', '.join(allowed)}")
+                    match = re.search(r"'([^']+)'", err.message)
+                    if match:
+                        print(f"    unexpected property: {match.group(1)}")
+                print()
             sys.exit(1)
     except SchemaError as e:
         print(f"❌ Invalid JSON Schema: {e}")

@@ -1,5 +1,5 @@
 module Jekyll
     module RISMOnlineRenderer
-        VERSION = "1.1.2"
+        VERSION = "1.1.3"
     end
 end
