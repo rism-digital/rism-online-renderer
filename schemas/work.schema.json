@@ -413,6 +413,12 @@
                 "label": {
                     "$ref": "#/definitions/I18nData"
                 },
+                "type": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
                 "value": {
                     "$ref": "#/definitions/I18nData"
                 }

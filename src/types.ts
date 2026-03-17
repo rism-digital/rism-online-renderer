@@ -353,6 +353,7 @@ export namespace WorkTypes {
     }
 
     export interface SummaryData {
+        type?: string[];
         label?: I18nData;
         value?: I18nData;
     }
